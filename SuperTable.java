@@ -24,7 +24,7 @@ public class SuperTable{
       // Instantiate Configuration class
       Configuration config = HBaseConfiguration.create();
       // Instaniate HBaseAdmin class
-      HBaseAdmin admin = new HBaseAdmin(con);
+      HBaseAdmin admin = new HBaseAdmin(config);
       // Instantiate table descriptor class
       HTableDescriptor tableDescriptor = new
       HTableDescriptor(TableName.valueOf("powers"));
@@ -63,13 +63,13 @@ public class SuperTable{
       // Save the table
 	
       // Close table
-      hTable.close();
+      //hTable.close();
       // Instantiate the Scan class
       Scan scan = new Scan();
       // Scan the required columns
       scan.addColumn(Bytes.toBytes("personal"), Bytes.toBytes("hero"));
       // Get the scan result
-      ResultScanner scanner = table.getScanner(scan);
+      ResultScanner scanner = hTable.getScanner(scan);
       // Read values from scan result
       for (Result result = scanner.next(); result != null; result = scanner.next()) {
          System.out.println("keyvalues=" + result);
